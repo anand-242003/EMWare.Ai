@@ -11,6 +11,37 @@
     top: 0;
     z-index: 1000;
   }
+  .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Light theme login/signup */
+  .btn.login {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .btn.signup {
+    background-color: #2196F3;
+    color: white;
+  }
+  
+  /* 🎯 DARKER logout button */
+  .btn.logout {
+    background-color: #333; /* dark gray */
+    color: white;
+  }
+  
+  .btn.logout:hover {
+    background-color: #000; /* darker on hover */
+  }
+  
   
   .logo {
     font-size: 1.8rem;
@@ -18,6 +49,12 @@
     color: #ff6600;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
+  .welcome-text {
+    color: white;
+    margin-right: 10px;
+    font-weight: 500;
+  }
+  
   
   .logo span {
     color: #333;

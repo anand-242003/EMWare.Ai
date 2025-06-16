@@ -1,17 +1,51 @@
 import React from 'react';
 import './Navbar.css';
-import { useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Navbar = () => {
-  const [isLogin, setIsLogin] = useState(false);
-  const [isSignup, setIsSignup] = useState(false);
-  
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  // console.log('User:', user);
+//   console.log('Is Authenticated:', isAuthenticated);
+//   console.log(import.meta.env.VITE_AUTH0_DOMAIN);
+// console.log(import.meta.env.VITE_AUTH0_CLIENT_ID);
+
+
   return (
     <nav className="navbar">
-      <div className="logo">EMWare <span>AI</span></div>
+      <div className="logo">
+        EMWare <span>AI</span>
+      </div>
+
       <div className="nav-buttons">
-        <button className="btn login">Login</button>
-        <button className="btn signup">Sign Up</button>
+        {!isAuthenticated ? (
+          <>
+            <button className="btn login" onClick={() => loginWithRedirect()}>
+              Login
+            </button>
+            <button
+              className="btn signup"
+              onClick={() => loginWithRedirect({ screen_hint: 'signup' })}
+            >
+              Sign Up
+            </button>
+          </>
+        ) : (
+          <>
+            <span className="welcome-text">Hi, {user?.given_name || user?.name}!</span>
+            <button
+              className="btn logout"
+              onClick={() =>
+                logout({
+                  logoutParams: {
+                    returnTo: window.location.origin,
+                  },
+                })
+              }
+            >
+              Logout
+            </button>
+          </>
+        )}
       </div>
     </nav>
   );
