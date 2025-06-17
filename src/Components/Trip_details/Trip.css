@@ -1,0 +1,238 @@
+/* Import professional fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap');
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  color: #2d3748;
+}
+
+/* Main Container */
+.travel-plan-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2.5rem 1rem;
+  background: #f8f9fa;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Subtle Vanta.js Background */
+.travel-plan-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Hero Section */
+.travel-plan-hero {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  margin-bottom: 3rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.travel-plan-hero:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.travel-plan-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.75rem;
+  color: #1a202c;
+  margin-bottom: 1rem;
+}
+
+.travel-plan-location {
+  background: linear-gradient(90deg, #f28c38, #f6ad55);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+  font-size: 3.25rem;
+}
+
+.travel-plan-hero p {
+  color: #4a5568;
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Section Headings */
+.travel-plan-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: #1a202c;
+  text-align: center;
+  margin: 2.5rem 0 1.5rem;
+  position: relative;
+}
+
+.travel-plan-section h2::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #f28c38, #f6ad55);
+  margin: 0.75rem auto;
+  border-radius: 2px;
+}
+
+/* Grid Layout for Hotels and Itinerary */
+.travel-plan-hotels,
+.travel-plan-itinerary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  padding: 0 0.5rem;
+}
+
+/* Card Styling */
+.travel-plan-hotel-card,
+.travel-plan-day-card {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.travel-plan-hotel-card:hover,
+.travel-plan-day-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.travel-plan-hotel-card h3,
+.travel-plan-day-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #1a202c;
+  margin-bottom: 0.75rem;
+}
+
+.travel-plan-hotel-card p,
+.travel-plan-day-card p,
+.travel-plan-activity p {
+  color: #4a5568;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Activity Styling */
+.travel-plan-activity {
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-top: 1rem;
+  transition: background 0.3s ease;
+}
+
+.travel-plan-activity:hover {
+  background: #edf2f7;
+}
+
+.travel-plan-activity strong {
+  color: #f28c38;
+  font-weight: 600;
+}
+
+/* Images */
+.travel-plan-hotel-image,
+.travel-plan-activity-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.travel-plan-hotel-image:hover,
+.travel-plan-activity-image:hover {
+  transform: scale(1.03);
+}
+
+/* Error Section */
+.travel-plan-error {
+  text-align: center;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+.travel-plan-error h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  color: #1a202c;
+  margin-bottom: 1rem;
+}
+
+.travel-plan-error p {
+  color: #4a5568;
+  font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .travel-plan-container {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .travel-plan-hero {
+    padding: 2rem 1.5rem;
+  }
+
+  .travel-plan-hero h1 {
+    font-size: 2rem;
+  }
+
+  .travel-plan-location {
+    font-size: 2.5rem;
+  }
+
+  .travel-plan-hotels,
+  .travel-plan-itinerary {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .travel-plan-hero h1 {
+    font-size: 1.75rem;
+  }
+
+  .travel-plan-location {
+    font-size: 2rem;
+  }
+
+  .travel-plan-hotel-image,
+  .travel-plan-activity-image {
+    height: 140px;
+  }
+
+  .travel-plan-section h2 {
+    font-size: 1.75rem;
+  }
+}
