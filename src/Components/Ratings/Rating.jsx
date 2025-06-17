@@ -1,4 +1,3 @@
-// src/Components/Ratings/Ratings.jsx
 import React, { useState } from 'react';
 import './Rating.css'; 
 

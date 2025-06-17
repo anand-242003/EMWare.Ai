@@ -50,9 +50,11 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   .welcome-text {
-    color: white;
+    color: #15a8fb;
     margin-right: 10px;
-    font-weight: 500;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
   }
   
   

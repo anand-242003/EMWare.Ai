@@ -1,32 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react'; 
 
-import Navbar from '../Navigation/Navbar';
+import Navbar from '../Navigation/Navbar.jsx';
 import './Hero.css';
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaXTwitter, FaGithub } from "react-icons/fa6";
-import Background from './Background.jsx';
 import Ratings from '../Ratings/Rating.jsx';
 
 const Hero = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const navigate = useNavigate();
-
   const { isAuthenticated, loginWithRedirect } = useAuth0();
+  const vantaRef = useRef(null);
 
   const handleStartPlanning = () => {
     if (isAuthenticated) {
-      navigate('/planner'); // Navigate to the planner page
+      navigate('/form'); 
     } else {
       alert('Please login to start planning your trip!');
-      loginWithRedirect(); // Optional: Redirect to login
+      loginWithRedirect(); 
     }
   };
 
+  // Initialize Vanta.js NET effect
+  useEffect(() => {
+    const vantaEffect = window.VANTA.BIRDS({
+      el: vantaRef.current,
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      backgroundColor: 0xffffff,
+      color1: 0xff6600,     // Optional: Primary bird color
+      color2: 0x000000,     // Optional: Secondary color
+      birdSize: 1.5,        // You can tweak this
+      wingSpan: 20.00,
+      speedLimit: 4.00,
+      separation: 50.00,
+      alignment: 50.00,
+      cohesion: 50.00,
+      quantity: 4.00        // Number of birds
+    });
+  
+    return () => {
+      if (vantaEffect) vantaEffect.destroy();
+    };
+  }, []);
+  
   return (
-    <div className="hero-wrapper" style={{ position: 'relative', overflow: 'hidden' }}>
-      <Background />
+    <div className="hero-wrapper" style={{ position: 'relative', overflow: 'hidden' }} ref={vantaRef}>
       <Navbar />
 
       <section className="hero">
@@ -51,10 +77,7 @@ const Hero = () => {
           Join over half a million travelers on their journey to easy trip planning
         </h2>
 
-    
-          <Ratings />
-
-       
+        <Ratings />
 
         <div className="logo-footer animate-fade-up delay-7">
           <div className="logo-box">EMWare <span>AI</span></div>
