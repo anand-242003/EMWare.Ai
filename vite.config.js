@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react'; // if you're using React
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
+  base: '/EMWare.Ai/', // 👈 your repo name
   plugins: [react()],
-  base: '/EMWare.Ai/', // 👈 use your repo name here (case-sensitive!)
 });
