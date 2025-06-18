@@ -17,6 +17,8 @@
     "@okta/okta-auth-js": "^7.12.1",
     "@react-three/drei": "^10.3.0",
     "@rive-app/react-canvas": "^4.21.3",
+    "@tsparticles/engine": "^3.8.1",
+    "@tsparticles/react": "^3.0.0",
     "framer-motion": "^12.18.1",
     "gsap": "^3.13.0",
     "lottie-react": "^2.4.1",
