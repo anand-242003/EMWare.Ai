@@ -9,12 +9,17 @@ import { FaFacebook, FaXTwitter, FaGithub } from "react-icons/fa6";
 import Ratings from '../Ratings/Rating.jsx';
 
 const Hero = () => {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  console.log(import.meta.env.VITE_AUTH0_DOMAIN);
+  console.log(import.meta.env.VITE_AUTH0_CLIENT_ID);
+  console.log(import.meta.env.VITE_GOOGLE_MAPS_API_KEY);
+  console.log(import.meta.env.VITE_GEMINI_API_KEY);
+  // const [hoveredIndex, setHoveredIndex] = useState(null);
   const navigate = useNavigate();
   const { isAuthenticated, loginWithRedirect } = useAuth0();
   const vantaRef = useRef(null);
 
   const handleStartPlanning = () => {
+    
     if (isAuthenticated) {
       navigate('/form'); 
     } else {
