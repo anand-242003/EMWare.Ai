@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "predeploy": "npm run build"
+    "predeploy": "npm run build",
+    "start:proxy": "node server.js"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.3.0",
@@ -19,6 +20,10 @@
     "@rive-app/react-canvas": "^4.21.3",
     "@tsparticles/engine": "^3.8.1",
     "@tsparticles/react": "^3.0.0",
+    "axios": "^1.10.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
     "framer-motion": "^12.18.1",
     "gsap": "^3.13.0",
     "lottie-react": "^2.4.1",
