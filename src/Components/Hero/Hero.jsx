@@ -7,15 +7,14 @@ import './Hero.css';
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaXTwitter, FaGithub } from "react-icons/fa6";
 import Ratings from '../Ratings/Rating.jsx';
+import { Player } from '@lottiefiles/react-lottie-player';
 
 const Hero = () => {
-  // const [hoveredIndex, setHoveredIndex] = useState(null);
   const navigate = useNavigate();
   const { isAuthenticated, loginWithRedirect } = useAuth0();
   const vantaRef = useRef(null);
 
   const handleStartPlanning = () => {
-    
     if (isAuthenticated) {
       navigate('/form'); 
     } else {
@@ -24,7 +23,7 @@ const Hero = () => {
     }
   };
 
-  // Initialize Vanta.js NET effect
+  // Initialize Vanta.js
   useEffect(() => {
     const vantaEffect = window.VANTA.BIRDS({
       el: vantaRef.current,
@@ -36,22 +35,21 @@ const Hero = () => {
       scale: 1.00,
       scaleMobile: 1.00,
       backgroundColor: 0xffffff,
-      color1: 0xff6600,     // Optional: Primary bird color
-      color2: 0x000000,     // Optional: Secondary color
-      birdSize: 1.5,        // You can tweak this
+      color1: 0xff6600,
+      color2: 0x000000,
+      birdSize: 1.5,
       wingSpan: 20.00,
       speedLimit: 4.00,
       separation: 50.00,
       alignment: 50.00,
       cohesion: 50.00,
-      quantity: 4.00        // Number of birds
+      quantity: 4.00
     });
-  
     return () => {
       if (vantaEffect) vantaEffect.destroy();
     };
   }, []);
-  
+
   return (
     <div className="hero-wrapper" style={{ position: 'relative', overflow: 'hidden' }} ref={vantaRef}>
       <Navbar />
@@ -65,8 +63,21 @@ const Hero = () => {
           Start Planning
         </button>
 
-        <div className="video-placeholder animate-fade-up delay-4">
-          <p>🎬 Project video will appear here</p>
+        {/* Lottie Animation */}
+        <div className="lottie-wrapper animate-fade-up delay-4">
+        <Player
+        autoplay
+        loop
+        src="https://lottie.host/000c38d4-d859-494b-9291-42721f5579c2/lApjEh7fuv.json"
+        style={{
+          height: '550px',
+          marginTop: '15px', 
+          width: '1280px',
+          backgroundColor: 'transparent',
+          padding: '20px',
+          zIndex:10,
+        }}
+      />
         </div>
 
         <div className="map-line animate-fade-up delay-5">
