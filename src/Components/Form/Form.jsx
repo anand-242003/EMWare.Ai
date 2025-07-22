@@ -3,7 +3,6 @@ import "./Form.css";
 import { fetchItinerary } from "../../utils/gemini";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "@googlemaps/js-api-loader";
-
 const Form = () => {
   const [destination, setDestination] = useState("");
   const [days, setDays] = useState("");
@@ -88,8 +87,17 @@ const Form = () => {
         budget: budget,
       });
 
-      localStorage.setItem("tripData", JSON.stringify(response));
-      navigate("/trip-details", {
+      localStorage.setItem(
+        "tripData",
+        JSON.stringify({
+          ...response,
+          location: destination,
+          days,
+          budget,
+          Traveller: travelWith,
+        })
+      );
+            navigate("/trip-details", {
         state: {
           tripData: {
             ...response,
@@ -124,7 +132,9 @@ const Form = () => {
             EMWare <span>AI</span>
           </div>
           <div className="nav-buttons">
-            <button className="btn my-trips">My Trips</button>
+          <button className="btn my-trips" onClick={() => navigate("/trip-details")}>
+  My Trips
+</button>
             <button className="btn create-trip">Create Trip</button>
           </div>
         </nav>

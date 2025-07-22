@@ -39,17 +39,17 @@ const Hero = () => {
       color2: 0x000000,
       birdSize: 1.5,
       wingSpan: 20.00,
-      speedLimit: 4.00,
+      speedLimit: 2,     // Reduced speed
       separation: 50.00,
       alignment: 50.00,
       cohesion: 50.00,
-      quantity: 4.00
+      quantity: 2.00        // Reduced bird count
     });
     return () => {
       if (vantaEffect) vantaEffect.destroy();
     };
   }, []);
-
+  
   return (
     <div className="hero-wrapper" style={{ position: 'relative', overflow: 'hidden' }} ref={vantaRef}>
       <Navbar />
@@ -72,7 +72,7 @@ const Hero = () => {
         style={{
           height: '550px',
           marginTop: '15px', 
-          width: '1280px',
+          width: "90%",
           backgroundColor: 'transparent',
           padding: '20px',
           zIndex:10,

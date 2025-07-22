@@ -1,14 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import './Trip.css';
+import React, { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import "./Trip.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function TripDetails() {
   const { state } = useLocation();
-  const tripData = state?.tripData || JSON.parse(localStorage.getItem('tripData'));
+  const tripData =
+    state?.tripData || JSON.parse(localStorage.getItem("tripData"));
 
   const heroRef = useRef(null);
   const hotelRefs = useRef([]);
@@ -29,18 +30,17 @@ export default function TripDetails() {
           minWidth: 200,
           scale: 1,
           scaleMobile: 1,
-          color: 0xbae6fd,         // Light Sky Blue
-backgroundColor: 0xe0f2fe, // Very pale blue background
+          color: 0xbae6fd, // Light Sky Blue
+          backgroundColor: 0xe0f2fe, // Very pale blue background
 
-shininess: 2, // Slightly more for subtle reflections
-waveHeight: 20, // Keeping it for pronounced waves
-waveSpeed: .9, // Calm effect
-zoom: 1.1, // Slight zoom for depth
-
+          shininess: 2, // Slightly more for subtle reflections
+          waveHeight: 20, // Keeping it for pronounced waves
+          waveSpeed: 0.9, // Calm effect
+          zoom: 1.1, // Slight zoom for depth
         });
         setVantaEffect(effect);
       } catch (error) {
-        console.error('Vanta.js WAVES initialization failed:', error);
+        console.error("Vanta.js WAVES initialization failed:", error);
       }
     }
 
@@ -48,7 +48,7 @@ zoom: 1.1, // Slight zoom for depth
     gsap.fromTo(
       heroRef.current,
       { y: -60, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out' }
+      { y: 0, opacity: 1, duration: 1.2, ease: "power3.out" }
     );
 
     // GSAP animations for hotel cards
@@ -62,11 +62,11 @@ zoom: 1.1, // Slight zoom for depth
             opacity: 1,
             duration: 0.8,
             delay: i * 0.15,
-            ease: 'power2.out',
+            ease: "power2.out",
             scrollTrigger: {
               trigger: el,
-              start: 'top 85%',
-              toggleActions: 'play none none none',
+              start: "top 85%",
+              toggleActions: "play none none none",
             },
           }
         );
@@ -84,10 +84,10 @@ zoom: 1.1, // Slight zoom for depth
             opacity: 1,
             duration: 0.8,
             delay: i * 0.15,
-            ease: 'power2.out',
+            ease: "power2.out",
             scrollTrigger: {
               trigger: el,
-              start: 'top 85%',
+              start: "top 85%",
             },
           }
         );
@@ -99,12 +99,11 @@ zoom: 1.1, // Slight zoom for depth
         try {
           vantaEffect.destroy();
         } catch (error) {
-          console.error('Vanta.js cleanup failed:', error);
+          console.error("Vanta.js cleanup failed:", error);
         }
       }
     };
   }, [vantaEffect]);
-
 
   if (!tripData || !tripData.itinerary || !tripData.hotels) {
     return (
@@ -115,17 +114,26 @@ zoom: 1.1, // Slight zoom for depth
     );
   }
 
-  const { location = 'Unknown Location', days = 'Unknown' } = tripData;
+  const { location: tripLocation = "Unknown Location", days = "Unknown" } =
+    tripData;
 
   return (
-    <section className="travel-plan-container" ref={vantaRef} aria-label="Trip Details">
+    <section
+      className="travel-plan-container"
+      ref={vantaRef}
+      aria-label="Trip Details"
+    >
       <header className="travel-plan-hero" ref={heroRef}>
         <h1>
-          Your Trip to <span className="travel-plan-location">{location}</span>
+          Your Trip to{" "}
+          <span className="travel-plan-location">{tripLocation}</span>
         </h1>
         <p>
-          <strong>Duration:</strong> {days} days<br />
-          <strong>Highlights:</strong> Discover the charm of <em>{location}</em> — every moment is an adventure waiting to unfold!
+          <strong>Duration:</strong> {days} days
+          <br />
+          <strong>Highlights:</strong> Discover the charm of{" "}
+          <em>{tripLocation}</em> — every moment is an adventure waiting to
+          unfold!
         </p>
       </header>
 
@@ -137,17 +145,21 @@ zoom: 1.1, // Slight zoom for depth
               className="travel-plan-hotel-card"
               key={hotel.HotelName || `hotel-${i}`}
               ref={(el) => (hotelRefs.current[i] = el)}
-              aria-label={`Hotel: ${hotel.HotelName || 'Unknown'}`}
+              aria-label={`Hotel: ${hotel.HotelName || "Unknown"}`}
             >
-              <h3>{hotel.HotelName || hotel.name || 'Unknown Hotel'}</h3>
-              <p>{hotel.Address || 'Address not available'}</p>
-              <p><strong>Price:</strong> {hotel.Price || 'N/A'}</p>
-              <p><strong>Rating:</strong> {hotel.Rating || 'N/A'} ★</p>
-              <p>{hotel.Description || 'No description available'}</p>
+              <h3>{hotel.HotelName || hotel.name || "Unknown Hotel"}</h3>
+              <p>{hotel.Address || "Address not available"}</p>
+              <p>
+                <strong>Price:</strong> {hotel.Price || "N/A"}
+              </p>
+              <p>
+                <strong>Rating:</strong> {hotel.Rating || "N/A"} ★
+              </p>
+              <p>{hotel.Description || "No description available"}</p>
               {hotel.ImageUrl && (
                 <img
                   src={hotel.ImageUrl}
-                  alt={`${hotel.HotelName || 'Hotel'} view`}
+                  alt={`${hotel.HotelName || "Hotel"} view`}
                   className="travel-plan-hotel-image"
                   loading="lazy"
                 />
@@ -157,7 +169,10 @@ zoom: 1.1, // Slight zoom for depth
         </div>
       </section>
 
-      <section className="travel-plan-section" aria-labelledby="itinerary-heading">
+      <section
+        className="travel-plan-section"
+        aria-labelledby="itinerary-heading"
+      >
         <h2 id="itinerary-heading">📍 Itinerary</h2>
         <div className="travel-plan-itinerary">
           {tripData.itinerary.map((day, i) => (
