@@ -91,14 +91,23 @@ const Hero = () => {
         <Ratings />
 
         <div className="logo-footer animate-fade-up delay-7">
-          <div className="logo-box">EMWare <span>AI</span></div>
-          <div className="socials">
-            <FcGoogle className="google" title="Google" />
-            <FaFacebook className="facebook" title="Facebook" />
-            <FaXTwitter className="x" title="X" />
-            <FaGithub className="github" title="GitHub" />
-          </div>
-        </div>
+  <div className="logo-box">EMWare <span>AI</span></div>
+  <div className="socials">
+    <a href="https://www.google.com">
+      <FcGoogle className="google" title="Google" />
+    </a>
+    <a href="https://www.facebook.com">
+      <FaFacebook className="facebook" title="Facebook" />
+    </a>
+    <a href="https://twitter.com">
+      <FaXTwitter className="x" title="X" />
+    </a>
+    <a href="https://github.com">
+      <FaGithub className="github" title="GitHub" />
+    </a>
+  </div>
+</div>
+
       </section>
     </div>
   );
