@@ -2,13 +2,18 @@ import React, { useState } from 'react';
 import './Rating.css'; 
 
 const ratingsData = [
-  { name: "Kaustubh Kallu", stars: 5, feedback: "Amazing and time-saving!", size: 'large' },
-  { name: "Ajeesh Khan", stars: 4, feedback: "Helped me plan my honeymoon easily!", size: 'small' },
+  { name: "Kaustubh", stars: 5, feedback: "Amazing and time-saving!", size: 'small' },
+  { name: "Ajeesh", stars: 4, feedback: "Helped me plan my honeymoon easily!", size: 'small' },
   { name: "Suryansh Singh Modi", stars: 5, feedback: "User-friendly and accurate.", size: 'small' },
-  { name: "Mallu Verma", stars: 5, feedback: "Loved the personalized suggestions!", size: 'small' },
-  { name: "Omved Yadav", stars: 4, feedback: "Could use more features, but great overall.", size: 'large' },
-  { name: "Anant Ali", stars: 5, feedback: "This app saved me so much time!", size: 'small' },
+  { name: "Mayank", stars: 5, feedback: "Loved the personalized suggestions!", size: 'small' },
+  { name: "Omved", stars: 4, feedback: "Could use more features, but great overall.", size: 'small' },
+  { name: "Anant", stars: 5, feedback: "This app saved me so much time!", size: 'small' },
+  { name: "Hardik", stars: 5, feedback: "The interface is clean and super intuitive.", size: 'small' },
+  { name: "Mitul", stars: 4, feedback: "Smooth experience, would recommend!", size: 'small' },
+  { name: "Sarvjeet", stars: 5, feedback: "Perfect companion for trip planning!", size: 'small' },
+  { name: "Prashant", stars: 4, feedback: "Great app, just needs offline mode!", size: 'small' },
 ];
+
 
 const Ratings = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
