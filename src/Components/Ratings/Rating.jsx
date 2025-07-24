@@ -4,7 +4,7 @@ import './Rating.css';
 const ratingsData = [
   { name: "Kaustubh Kallu", stars: 5, feedback: "Amazing and time-saving!", size: 'large' },
   { name: "Ajeesh Khan", stars: 4, feedback: "Helped me plan my honeymoon easily!", size: 'small' },
-  { name: "Rohan Das", stars: 5, feedback: "User-friendly and accurate.", size: 'small' },
+  { name: "Suryansh Singh Modi", stars: 5, feedback: "User-friendly and accurate.", size: 'small' },
   { name: "Mallu Verma", stars: 5, feedback: "Loved the personalized suggestions!", size: 'small' },
   { name: "Omved Yadav", stars: 4, feedback: "Could use more features, but great overall.", size: 'large' },
   { name: "Anant Ali", stars: 5, feedback: "This app saved me so much time!", size: 'small' },

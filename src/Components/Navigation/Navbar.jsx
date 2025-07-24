@@ -4,10 +4,6 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const Navbar = () => {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
-  // console.log('User:', user);
-//   console.log('Is Authenticated:', isAuthenticated);
-//   console.log(import.meta.env.VITE_AUTH0_DOMAIN);
-// console.log(import.meta.env.VITE_AUTH0_CLIENT_ID);
 
 
   return (

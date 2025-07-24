@@ -23,7 +23,6 @@ const Hero = () => {
     }
   };
 
-  // Initialize Vanta.js
   useEffect(() => {
     const vantaEffect = window.VANTA.BIRDS({
       el: vantaRef.current,
@@ -39,11 +38,11 @@ const Hero = () => {
       color2: 0x000000,
       birdSize: 1.5,
       wingSpan: 20.00,
-      speedLimit: 2,     // Reduced speed
+      speedLimit: 2,     
       separation: 50.00,
       alignment: 50.00,
       cohesion: 50.00,
-      quantity: 2.00        // Reduced bird count
+      quantity: 2.00        
     });
     return () => {
       if (vantaEffect) vantaEffect.destroy();

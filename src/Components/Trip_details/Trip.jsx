@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Trip.css";
@@ -8,6 +8,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function TripDetails() {
   const { state } = useLocation();
+  const navigate = useNavigate();
+
   const tripData =
     state?.tripData || JSON.parse(localStorage.getItem("tripData"));
 
@@ -17,8 +19,13 @@ export default function TripDetails() {
   const vantaRef = useRef(null);
   const [vantaEffect, setVantaEffect] = useState(null);
 
+  const handleCancelTrip = () => {
+    localStorage.removeItem("tripData");
+    alert("Trip cancelled successfully.");
+    navigate("/form"); 
+  };
+
   useEffect(() => {
-    // Initialize Vanta.js background
     if (!vantaEffect && vantaRef.current) {
       try {
         const effect = window.VANTA.WAVES({
@@ -30,13 +37,12 @@ export default function TripDetails() {
           minWidth: 200,
           scale: 1,
           scaleMobile: 1,
-          color: 0xbae6fd, // Light Sky Blue
-          backgroundColor: 0xe0f2fe, // Very pale blue background
-
-          shininess: 2, // Slightly more for subtle reflections
-          waveHeight: 20, // Keeping it for pronounced waves
-          waveSpeed: 0.9, // Calm effect
-          zoom: 1.1, // Slight zoom for depth
+          color: 0xbae6fd,
+          backgroundColor: 0xe0f2fe,
+          shininess: 2,
+          waveHeight: 20,
+          waveSpeed: 0.9,
+          zoom: 1.1,
         });
         setVantaEffect(effect);
       } catch (error) {
@@ -44,14 +50,12 @@ export default function TripDetails() {
       }
     }
 
-    // GSAP animations for hero
     gsap.fromTo(
       heroRef.current,
       { y: -60, opacity: 0 },
       { y: 0, opacity: 1, duration: 1.2, ease: "power3.out" }
     );
 
-    // GSAP animations for hotel cards
     hotelRefs.current.forEach((el, i) => {
       if (el) {
         gsap.fromTo(
@@ -73,7 +77,6 @@ export default function TripDetails() {
       }
     });
 
-    // GSAP animations for itinerary cards
     itineraryRefs.current.forEach((el, i) => {
       if (el) {
         gsap.fromTo(
@@ -136,6 +139,12 @@ export default function TripDetails() {
           unfold!
         </p>
       </header>
+
+      <div className="trip-cancel-wrapper">
+        <button className="cancel-trip-button" onClick={handleCancelTrip}>
+           Cancel Trip
+        </button>
+      </div>
 
       <section className="travel-plan-section" aria-labelledby="hotels-heading">
         <h2 id="hotels-heading">🏨 Hotel Recommendations</h2>

@@ -135,7 +135,6 @@ const Form = () => {
           <button className="btn my-trips" onClick={() => navigate("/trip-details")}>
   My Trips
 </button>
-            <button className="btn create-trip">Create Trip</button>
           </div>
         </nav>
 
