@@ -55,6 +55,11 @@ No Markdown, no code blocks, no extra text. Follow this structure:
   ]
 }
 
+IMPORTANT: 
+- Provide at least 3-5 hotel recommendations with different price ranges
+- Each hotel must have complete details including name, address, price, rating, and description
+- Hotels should match the ${budget} budget category
+
 Now generate a plan for:
 Location: ${location}
 Total Days: ${totalDays}
@@ -94,10 +99,11 @@ Budget: ${budget}
     const parsed = JSON.parse(cleanText);
 
     if (parsed.hotels && Array.isArray(parsed.hotels)) {
-      const hotelPromises = parsed.hotels.map(async (hotel) => {
+      const hotelPromises = parsed.hotels.map(async (hotel, index) => {
         const hotelDetails = await fetchHotelImage(
           hotel.HotelName,
-          location
+          location,
+          index
         );
         return {
           ...hotel,

@@ -1,92 +1,117 @@
-/* Navbar.css */
+/* Navbar - Dark Theme with Neon Green */
 
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.2rem 2rem;
-    background-color: #ffffff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  background: rgba(13, 31, 13, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+}
+
+.logo span {
+  color: #00FF00;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn {
+  padding: 0.75rem 1.75rem;
+  border: none;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.btn.login {
+  background: transparent;
+  color: #00FF00;
+  border: 2px solid rgba(0, 255, 0, 0.5);
+}
+
+.btn.login:hover {
+  background: rgba(0, 255, 0, 0.1);
+  border-color: #00FF00;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+}
+
+.btn.signup {
+  background: #00FF00;
+  color: #000000;
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
+  border: none;
+}
+
+.btn.signup:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 50px rgba(0, 255, 0, 0.6);
+}
+
+.btn.logout {
+  background: rgba(255, 51, 102, 0.2);
+  color: #FF3366;
+  border: 2px solid rgba(255, 51, 102, 0.5);
+}
+
+.btn.logout:hover {
+  background: #FF3366;
+  color: #FFFFFF;
+  border-color: #FF3366;
+}
+
+.welcome-text {
+  color: #E0E0E0;
+  font-weight: 500;
+  margin-right: 1rem;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem 1.5rem;
   }
-  .btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 0 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  /* Light theme login/signup */
-  .btn.login {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .btn.signup {
-    background-color: #2196F3;
-    color: white;
-  }
-  
-  /* 🎯 DARKER logout button */
-  .btn.logout {
-    background-color: #333; /* dark gray */
-    color: white;
-  }
-  
-  .btn.logout:hover {
-    background-color: #000; /* darker on hover */
-  }
-  
   
   .logo {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #ff6600;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.2rem;
   }
+  
   .welcome-text {
-    color: #15a8fb;
-    margin-right: 10px;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-  }
-  
-  
-  .logo span {
-    color: #333;
-  }
-  
-  .nav-buttons {
-    display: flex;
-    gap: 1rem;
+    display: none;
   }
   
   .btn {
     padding: 0.6rem 1.2rem;
-    border: none;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-    color: white;
+    font-size: 0.85rem;
   }
-  
-  .btn:hover {
-    transform: scale(1.05);
-  }
-  
-  .login {
-    background: linear-gradient(45deg, #7d7d7d, #b0b0b0);
-  }
-  
-  .signup {
-    background: linear-gradient(45deg, #ff7e5f, #ff6600);
-  }
-  
+}

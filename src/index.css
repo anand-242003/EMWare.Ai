@@ -1,0 +1,129 @@
+/* Global Styles - Dark Theme with Muted Green */
+
+:root {
+  /* Primary Colors */
+  --primary-bg: #1a2e1a;
+  --secondary-bg: #0d1f0d;
+  --card-bg: #1e3a1e;
+  --accent-green: #5fb962;
+  --accent-green-dark: #46a049;
+  
+  /* Neutral Colors */
+  --white: #FFFFFF;
+  --light-gray: #E0E0E0;
+  --medium-gray: #808080;
+  --dark-gray: #2a2a2a;
+  --black: #000000;
+  
+  /* Semantic Colors */
+  --success: #5fb962;
+  --error: #FF3366;
+  --warning: #FFD700;
+  --info: #00BFFF;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, var(--secondary-bg) 0%, var(--primary-bg) 100%);
+  color: var(--white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(95, 185, 98, 0.6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(95, 185, 98, 0.8);
+}
+
+/* Selection */
+::selection {
+  background: var(--accent-green);
+  color: var(--black);
+}
+
+
+/* Google Places Autocomplete Dropdown Styling */
+.pac-container {
+  background-color: rgba(30, 58, 30, 0.98) !important;
+  border: 1px solid rgba(95, 185, 98, 0.3) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+  margin-top: 4px !important;
+  font-family: 'Inter', sans-serif !important;
+  z-index: 9999 !important;
+  backdrop-filter: blur(20px);
+}
+
+.pac-container::after {
+  display: none !important;
+}
+
+.pac-item {
+  padding: 12px 16px !important;
+  color: #E0E0E0 !important;
+  border-top: 1px solid rgba(95, 185, 98, 0.1) !important;
+  cursor: pointer !important;
+  font-size: 0.95rem !important;
+  transition: all 0.2s ease !important;
+}
+
+.pac-item:first-child {
+  border-top: none !important;
+}
+
+.pac-item:hover {
+  background-color: rgba(95, 185, 98, 0.15) !important;
+  color: #FFFFFF !important;
+}
+
+.pac-item-selected {
+  background-color: rgba(95, 185, 98, 0.2) !important;
+  color: #FFFFFF !important;
+}
+
+.pac-item-query {
+  color: #5fb962 !important;
+  font-weight: 600 !important;
+}
+
+.pac-matched {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+
+.pac-icon {
+  display: none !important;
+}
+
+.pac-logo::after {
+  display: none !important;
+}

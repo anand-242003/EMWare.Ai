@@ -1,14 +1,15 @@
 import React from 'react';
 import './Navbar.css';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
-
+  const navigate = useNavigate();
 
   return (
     <nav className="navbar">
-      <div className="logo">
+      <div className="logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
         EMWare <span>AI</span>
       </div>
 

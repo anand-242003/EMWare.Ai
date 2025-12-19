@@ -9,211 +9,205 @@ gsap.registerPlugin(ScrollTrigger);
 export default function TripDetails() {
   const { state } = useLocation();
   const navigate = useNavigate();
-
-  const tripData =
-    state?.tripData || JSON.parse(localStorage.getItem("tripData"));
-
+  const tripData = state?.tripData || JSON.parse(localStorage.getItem("tripData"));
   const heroRef = useRef(null);
   const hotelRefs = useRef([]);
-  const itineraryRefs = useRef([]);
-  const vantaRef = useRef(null);
-  const [vantaEffect, setVantaEffect] = useState(null);
+  const [showAllHotels, setShowAllHotels] = useState(false);
+  const [selectedHotel, setSelectedHotel] = useState(null);
 
   const handleCancelTrip = () => {
     localStorage.removeItem("tripData");
-    alert("Trip cancelled successfully.");
-    navigate("/form"); 
+    navigate("/form");
+  };
+
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   };
 
   useEffect(() => {
-    if (!vantaEffect && vantaRef.current) {
-      try {
-        const effect = window.VANTA.WAVES({
-          el: vantaRef.current,
-          mouseControls: true,
-          touchControls: true,
-          gyroControls: false,
-          minHeight: 200,
-          minWidth: 200,
-          scale: 1,
-          scaleMobile: 1,
-          color: 0xbae6fd,
-          backgroundColor: 0xe0f2fe,
-          shininess: 2,
-          waveHeight: 20,
-          waveSpeed: 0.9,
-          zoom: 1.1,
-        });
-        setVantaEffect(effect);
-      } catch (error) {}
+    if (heroRef.current) {
+      gsap.fromTo(heroRef.current, { y: -60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out" });
     }
-
-    gsap.fromTo(
-      heroRef.current,
-      { y: -60, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.2, ease: "power3.out" }
-    );
-
+    
     hotelRefs.current.forEach((el, i) => {
       if (el) {
-        gsap.fromTo(
-          el,
-          { y: 40, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            delay: i * 0.15,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 85%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
+        gsap.fromTo(el, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, delay: i * 0.15, ease: "power2.out", scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none none" } });
       }
     });
-
-    itineraryRefs.current.forEach((el, i) => {
-      if (el) {
-        gsap.fromTo(
-          el,
-          { x: -40, opacity: 0 },
-          {
-            x: 0,
-            opacity: 1,
-            duration: 0.8,
-            delay: i * 0.15,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 85%",
-            },
-          }
-        );
-      }
-    });
-
-    return () => {
-      if (vantaEffect) {
-        try {
-          vantaEffect.destroy();
-        } catch (error) {}
-      }
-    };
-  }, [vantaEffect]);
+  }, [showAllHotels]);
 
   if (!tripData || !tripData.itinerary || !tripData.hotels) {
     return (
-      <section className="travel-plan-error" aria-label="Error message">
+      <section className="trip-error">
         <h2>Error</h2>
         <p>No trip data available. Please try generating a trip again.</p>
       </section>
     );
   }
 
-  const { location: tripLocation = "Unknown Location", days = "Unknown" } =
-    tripData;
+  const { location: tripLocation = "Unknown Location", days = "Unknown", startDate, endDate } = tripData;
+  const displayedHotels = showAllHotels ? tripData.hotels : tripData.hotels.slice(0, 3);
 
   return (
-    <section
-      className="travel-plan-container"
-      ref={vantaRef}
-      aria-label="Trip Details"
-    >
-      <header className="travel-plan-hero" ref={heroRef}>
-        <h1>
-          Your Trip to{" "}
-          <span className="travel-plan-location">{tripLocation}</span>
-        </h1>
-        <p>
-          <strong>Duration:</strong> {days} days
-          <br />
-          <strong>Highlights:</strong> Discover the charm of{" "}
-          <em>{tripLocation}</em> — every moment is an adventure waiting to
-          unfold!
-        </p>
-      </header>
-
-      <div className="trip-cancel-wrapper">
-        <button className="cancel-trip-button" onClick={handleCancelTrip}>
-           Cancel Trip
-        </button>
+    <div className="trip-container">
+      <div className="trip-content">
+        <header className="trip-header" ref={heroRef}>
+          <div className="trip-header-content">
+            <div className="trip-header-left">
+              <p className="trip-badge">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+                UPCOMING TRIP
+              </p>
+              <h1 className="trip-title">Trip to <span className="trip-location">{tripLocation}</span></h1>
+              <div className="trip-meta">
+                <span className="trip-meta-item">
+                  <svg className="trip-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                  {startDate && endDate ? `${formatDate(startDate)} - ${formatDate(endDate)}` : 'Oct 12 - Oct 20'}
+                </span>
+                <span className="trip-meta-item">
+                  <svg className="trip-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  {days} Days
+                </span>
+              </div>
+            </div>
+            <button className="cancel-btn" onClick={handleCancelTrip}>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              Cancel Trip
+            </button>
+          </div>
+        </header>
+        <section className="hotels-section">
+          <div className="section-header">
+            <h2 className="section-title">
+              <svg className="section-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+              Hotel Recommendations
+            </h2>
+            {tripData.hotels.length > 3 && (
+              <button className="view-all-btn" onClick={() => setShowAllHotels(!showAllHotels)}>
+                {showAllHotels ? 'Show Less' : 'View All'}
+                <svg className="btn-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+              </button>
+            )}
+          </div>
+          <div className="hotels-grid">
+            {displayedHotels.map((hotel, i) => (
+              <article key={hotel.HotelName || `hotel-${i}`} ref={(el) => (hotelRefs.current[i] = el)} className="hotel-card" onClick={() => setSelectedHotel(hotel)}>
+                {hotel.ImageUrl && (
+                  <div className="hotel-image-wrapper">
+                    <img src={hotel.ImageUrl} alt={hotel.HotelName || "Hotel"} className="hotel-image" />
+                    <div className="hotel-price-badge">{hotel.Price || "N/A"}</div>
+                  </div>
+                )}
+                <div className="hotel-content">
+                  <div className="hotel-rating">
+                    {[...Array(5)].map((_, idx) => (
+                      <svg key={idx} className="star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                    ))}
+                    <span>{hotel.Rating || "N/A"}</span>
+                  </div>
+                  <div className="hotel-header">
+                    <h3 className="hotel-name">{hotel.HotelName || hotel.name || "Unknown Hotel"}</h3>
+                  </div>
+                  <p className="hotel-address">
+                    <svg className="location-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    {hotel.Address || "Address not available"}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+        <section className="itinerary-section">
+          <h2 className="section-title">
+            <svg className="section-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
+            Daily Itinerary
+          </h2>
+          <div className="itinerary-list">
+            {tripData.itinerary.map((day, i) => (
+              <article key={`day-${i}`} className="day-card">
+                <div className="day-badge">Day {day.Day || i + 1}: Arrival & Culture</div>
+                <div className="activities-list">
+                  {day.Activities.map((activity, j) => (
+                    <div key={`activity-${j}`} className="activity-card">
+                      <div className="activity-time">
+                        <div className="time-label">09:00 AM</div>
+                        <div className="time-subtitle">Crowd level: Low</div>
+                      </div>
+                      <div className="activity-connector">
+                        <div className="connector-dot"></div>
+                      </div>
+                      <div className="activity-content">
+                        {activity.ImageUrl && (
+                          <div className="activity-image-wrapper">
+                            <img src={activity.ImageUrl} alt={activity.PlaceName} className="activity-image" />
+                          </div>
+                        )}
+                        <div className="activity-details">
+                          <h4 className="activity-name">{activity.PlaceName}</h4>
+                          <div className="activity-info">
+                            <span className="activity-info-item">
+                              <svg className="info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                              {activity.TravelTime}
+                            </span>
+                            <span className="activity-info-item">
+                              <svg className="info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                              {activity.TicketPricing}
+                            </span>
+                          </div>
+                          <p className="activity-description">{activity.PlaceDetails}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+        <footer className="trip-footer">
+          <p>© 2024 EMWare.AI Intelligent Travel Planning</p>
+          <div className="footer-links">
+            <a href="#" onClick={(e) => { e.preventDefault(); }}>Privacy Policy</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); }}>Terms of Service</a>
+          </div>
+        </footer>
       </div>
 
-      <section className="travel-plan-section" aria-labelledby="hotels-heading">
-        <h2 id="hotels-heading">🏨 Hotel Recommendations</h2>
-        <div className="travel-plan-hotels">
-          {tripData.hotels.map((hotel, i) => (
-            <article
-              className="travel-plan-hotel-card"
-              key={hotel.HotelName || `hotel-${i}`}
-              ref={(el) => (hotelRefs.current[i] = el)}
-              aria-label={`Hotel: ${hotel.HotelName || "Unknown"}`}
-            >
-              <h3>{hotel.HotelName || hotel.name || "Unknown Hotel"}</h3>
-              <p>{hotel.Address || "Address not available"}</p>
-              <p>
-                <strong>Price:</strong> {hotel.Price || "N/A"}
+      {selectedHotel && (
+        <div className="hotel-modal-overlay" onClick={() => setSelectedHotel(null)}>
+          <div className="hotel-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setSelectedHotel(null)}>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            {selectedHotel.ImageUrl && (
+              <div className="modal-image-wrapper">
+                <img src={selectedHotel.ImageUrl} alt={selectedHotel.HotelName} className="modal-image" />
+                <div className="modal-price-badge">{selectedHotel.Price || "N/A"}</div>
+              </div>
+            )}
+            <div className="modal-content">
+              <div className="modal-rating">
+                {[...Array(5)].map((_, idx) => (
+                  <svg key={idx} className="star-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                ))}
+                <span>{selectedHotel.Rating || "N/A"}</span>
+              </div>
+              <h2 className="modal-hotel-name">{selectedHotel.HotelName || selectedHotel.name || "Unknown Hotel"}</h2>
+              <p className="modal-address">
+                <svg className="location-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                {selectedHotel.Address || "Address not available"}
               </p>
-              <p>
-                <strong>Rating:</strong> {hotel.Rating || "N/A"} ★
-              </p>
-              <p>{hotel.Description || "No description available"}</p>
-              {hotel.ImageUrl && (
-                <img
-                  src={hotel.ImageUrl}
-                  alt={`${hotel.HotelName || "Hotel"} view`}
-                  className="travel-plan-hotel-image"
-                  loading="lazy"
-                />
-              )}
-            </article>
-          ))}
+              <p className="modal-description">{selectedHotel.Description || "No description available"}</p>
+              <div className="modal-actions">
+                <button className="book-btn">Book Now</button>
+                <button className="details-btn">View Details</button>
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
-
-      <section
-        className="travel-plan-section"
-        aria-labelledby="itinerary-heading"
-      >
-        <h2 id="itinerary-heading">📍 Itinerary</h2>
-        <div className="travel-plan-itinerary">
-          {tripData.itinerary.map((day, i) => (
-            <article
-              className="travel-plan-day-card"
-              key={`day-${i}`}
-              ref={(el) => (itineraryRefs.current[i] = el)}
-              aria-label={`Day ${day.Day || i + 1} Itinerary`}
-            >
-              <h3>Day {day.Day || i + 1}</h3>
-              {day.Activities.map((activity, j) => (
-                <div
-                  key={`activity-${j}`}
-                  className="travel-plan-activity"
-                  aria-label={`Activity: ${activity.PlaceName}`}
-                >
-                  <strong>{activity.PlaceName}</strong>
-                  <p>{activity.PlaceDetails}</p>
-                  <p>Price: {activity.TicketPricing}</p>
-                  <p>Rating: {activity.Rating} ⭑</p>
-                  <p>{activity.TravelTime}</p>
-                  <p>📍 {activity.GeoCoordinates}</p>
-                  {activity.ImageUrl && (
-                    <img
-                      src={activity.ImageUrl}
-                      alt={`${activity.PlaceName} view`}
-                      className="travel-plan-activity-image"
-                      loading="lazy"
-                    />
-                  )}
-                </div>
-              ))}
-            </article>
-          ))}
-        </div>
-      </section>
-    </section>
+      )}
+    </div>
   );
 }
