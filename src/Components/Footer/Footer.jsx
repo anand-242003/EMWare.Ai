@@ -12,35 +12,35 @@ const Footer = () => {
           <div className="footer-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
             <h2>EMWare<span>.AI</span></h2>
           </div>
-          <p className="footer-tagline">Your personal AI travel concierge.</p>
+          <p className="footer-tagline">Your AI-powered travel companion</p>
           <p className="footer-description">
-            Discover the world with AI-powered itineraries tailored to your preferences. 
-            Plan smarter, travel better.
+            Discover the world with personalized itineraries tailored to your preferences. 
+            Plan smarter, travel better with AI.
           </p>
         </div>
 
         <div className="footer-section">
-          <h3>Product</h3>
+          <h3>Travel Planner</h3>
           <ul>
-            <li><a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>Features</a></li>
-            <li><a href="https://emware.ai/pricing" target="_blank" rel="noopener noreferrer">Pricing</a></li>
-            <li><a href="/form" onClick={(e) => { e.preventDefault(); navigate('/form'); }}>Trip Planner</a></li>
-            <li><a href="https://docs.emware.ai/api" target="_blank" rel="noopener noreferrer">API Access</a></li>
+            <li><a href="/how-it-works" onClick={(e) => { e.preventDefault(); navigate('/how-it-works'); }}>How It Works</a></li>
+            <li><a href="/destinations" onClick={(e) => { e.preventDefault(); navigate('/destinations'); }}>Destinations</a></li>
+            <li><a href="/form" onClick={(e) => { e.preventDefault(); navigate('/form'); }}>Plan Your Trip</a></li>
+            <li><a href="/blog" onClick={(e) => { e.preventDefault(); navigate('/blog'); }}>Travel Guides</a></li>
           </ul>
         </div>
 
         <div className="footer-section">
-          <h3>Company</h3>
+          <h3>Resources</h3>
           <ul>
-            <li><a href="https://emware.ai/about" target="_blank" rel="noopener noreferrer">About Us</a></li>
-            <li><a href="https://emware.ai/careers" target="_blank" rel="noopener noreferrer">Careers</a></li>
-            <li><a href="https://blog.emware.ai" target="_blank" rel="noopener noreferrer">Blog</a></li>
-            <li><a href="mailto:support@emware.ai">Contact</a></li>
+            <li><a href="/blog" onClick={(e) => { e.preventDefault(); navigate('/blog'); }}>Travel Blog</a></li>
+            <li><a href="/destinations" onClick={(e) => { e.preventDefault(); navigate('/destinations'); }}>Trip Ideas</a></li>
+            <li><a href="/blog" onClick={(e) => { e.preventDefault(); navigate('/blog'); }}>Travel Tips</a></li>
+            <li><a href="mailto:support@emware.ai">Contact Support</a></li>
           </ul>
         </div>
 
         <div className="footer-section">
-          <h3>Social</h3>
+          <h3>Follow Us</h3>
           <div className="footer-socials">
             <a href="https://x.com/emwareai" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
               <FaXTwitter />
@@ -55,6 +55,7 @@ const Footer = () => {
               <FaGithub />
             </a>
           </div>
+          <p className="footer-tagline" style={{ marginTop: '1.5rem' }}>Plan smarter, travel better with AI</p>
         </div>
       </div>
 

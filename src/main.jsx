@@ -5,6 +5,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Hero from './Components/Hero/Hero';
 import Form from './Components/Form/Form';
 import TripDetails from './Components/Trip_details/Trip.jsx';
+import Blog from './Components/Blog/Blog.jsx';
+import HowItWorks from './Components/HowItWorks/HowItWorks.jsx';
+import Destinations from './Components/Destinations/Destinations.jsx';
 import Footer from './Components/Footer/Footer.jsx';
 import ErrorBoundary from './Components/ErrorBoundary/ErrorBoundary.jsx';
 import { validateEnvironment } from './utils/validateEnv.js';
@@ -35,6 +38,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="/" element={<Layout><Hero /></Layout>} />
             <Route path="/form" element={<Layout><Form /></Layout>} />
             <Route path="/trip-details" element={<Layout><TripDetails /></Layout>} />
+            <Route path="/blog" element={<Layout><Blog /></Layout>} />
+            <Route path="/how-it-works" element={<Layout><HowItWorks /></Layout>} />
+            <Route path="/destinations" element={<Layout><Destinations /></Layout>} />
           </Routes>
         </Auth0Provider>
       </BrowserRouter>

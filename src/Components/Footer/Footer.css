@@ -30,9 +30,7 @@
 
 .footer-logo svg,
 .footer-logo::before {
-  content: '✈️';
-  font-size: 1.5rem;
-  color: #5fb962;
+  display: none;
 }
 
 .footer-section h2 {
