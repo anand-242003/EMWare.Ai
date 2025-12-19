@@ -1,8 +1,8 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import {
-  fetchPlaceWithUnsplash,
-  fetchHotelWithUnsplash,
-} from "./unsplashApi.js";
+  fetchPlaceImage,
+  fetchHotelImage,
+} from "./imageApi.js";
 
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
@@ -95,7 +95,7 @@ Budget: ${budget}
 
     if (parsed.hotels && Array.isArray(parsed.hotels)) {
       const hotelPromises = parsed.hotels.map(async (hotel) => {
-        const hotelDetails = await fetchHotelWithUnsplash(
+        const hotelDetails = await fetchHotelImage(
           hotel.HotelName,
           location
         );
@@ -114,7 +114,7 @@ Budget: ${budget}
       const itineraryPromises = parsed.itinerary.map(async (day) => {
         if (day.Activities && Array.isArray(day.Activities)) {
           const activityPromises = day.Activities.map(async (activity) => {
-            const placeDetails = await fetchPlaceWithUnsplash(
+            const placeDetails = await fetchPlaceImage(
               activity.PlaceName,
               location
             );
