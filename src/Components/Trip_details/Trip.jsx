@@ -45,9 +45,7 @@ export default function TripDetails() {
           zoom: 1.1,
         });
         setVantaEffect(effect);
-      } catch (error) {
-        console.error("Vanta.js WAVES initialization failed:", error);
-      }
+      } catch (error) {}
     }
 
     gsap.fromTo(
@@ -101,9 +99,7 @@ export default function TripDetails() {
       if (vantaEffect) {
         try {
           vantaEffect.destroy();
-        } catch (error) {
-          console.error("Vanta.js cleanup failed:", error);
-        }
+        } catch (error) {}
       }
     };
   }, [vantaEffect]);

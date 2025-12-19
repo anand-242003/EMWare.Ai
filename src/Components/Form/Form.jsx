@@ -64,9 +64,7 @@ const Form = () => {
           setDestination(selectedDestination);
         });
       })
-      .catch((error) => {
-        console.error("Failed to load Google Maps API:", error);
-      });
+      .catch(() => {});
   }, []);
 
   const handleGeminiSearch = async () => {
@@ -86,6 +84,10 @@ const Form = () => {
         Traveller: travelWith,
         budget: budget,
       });
+
+      if (!response) {
+        throw new Error("Failed to generate itinerary. Please try again.");
+      }
 
       localStorage.setItem(
         "tripData",
@@ -109,8 +111,7 @@ const Form = () => {
         },
       });
     } catch (error) {
-      console.error("Failed to fetch from Gemini:", error);
-      alert("Something went wrong. Please try again.");
+      alert(error.message || "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }

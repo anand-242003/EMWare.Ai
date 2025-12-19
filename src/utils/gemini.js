@@ -6,14 +6,20 @@ import {
 
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
+const MODELS_TO_TRY = [
+  "gemini-2.5-flash",
+  "gemini-2.5-pro",
+  "gemini-1.5-flash",
+  "gemini-1.5-pro",
+  "gemini-pro"
+];
+
 export async function fetchItinerary({
   location,
   totalDays,
   Traveller,
   budget,
 }) {
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
   const prompt = `
 You are a travel planner AI. Generate a travel plan in **valid JSON format** only. 
 No Markdown, no code blocks, no extra text. Follow this structure:
@@ -56,11 +62,29 @@ Traveller(s): ${Traveller}
 Budget: ${budget}
 `;
 
-  try {
-    const result = await model.generateContent(prompt);
-    const text = result.response.text().trim();
+  let result = null;
+  let lastError = null;
 
-    // Optional: Remove code blocks if present (backup safeguard)
+  for (const modelName of MODELS_TO_TRY) {
+    try {
+      const model = genAI.getGenerativeModel({ model: modelName });
+      result = await model.generateContent(prompt);
+      break;
+    } catch (error) {
+      lastError = error;
+      continue;
+    }
+  }
+
+  if (!result) {
+    if (lastError?.message?.includes('404') || lastError?.message?.includes('not found')) {
+      throw new Error('Gemini API models not available. Please check your API key.');
+    }
+    throw new Error(`Failed to generate itinerary. Please try again. Error: ${lastError?.message || 'Unknown error'}`);
+  }
+
+  try {
+    const text = result.response.text().trim();
     const cleanText = text
       .replace(/^```json/, "")
       .replace(/^```/, "")
@@ -69,9 +93,7 @@ Budget: ${budget}
 
     const parsed = JSON.parse(cleanText);
 
-    // Fetch real images and details for hotels using Unsplash API
     if (parsed.hotels && Array.isArray(parsed.hotels)) {
-      console.log("🏨 Fetching hotel images from Unsplash...");
       const hotelPromises = parsed.hotels.map(async (hotel) => {
         const hotelDetails = await fetchHotelWithUnsplash(
           hotel.HotelName,
@@ -88,9 +110,7 @@ Budget: ${budget}
       parsed.hotels = await Promise.all(hotelPromises);
     }
 
-    // Fetch real images and details for places using Unsplash API
     if (parsed.itinerary && Array.isArray(parsed.itinerary)) {
-      console.log("📍 Fetching place images from Unsplash...");
       const itineraryPromises = parsed.itinerary.map(async (day) => {
         if (day.Activities && Array.isArray(day.Activities)) {
           const activityPromises = day.Activities.map(async (activity) => {
@@ -114,10 +134,8 @@ Budget: ${budget}
       parsed.itinerary = await Promise.all(itineraryPromises);
     }
 
-    console.log("✅ Successfully fetched itinerary with Unsplash images!");
     return parsed;
   } catch (err) {
-    console.error("❌ Gemini Itinerary JSON Parse Error:", err);
     return null;
   }
 }
