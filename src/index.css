@@ -17,9 +17,9 @@
   
   /* Semantic Colors */
   --success: #5fb962;
-  --error: #FF3366;
-  --warning: #FFD700;
-  --info: #00BFFF;
+  --error: #e85d75;
+  --warning: #f4a261;
+  --info: #4a9eff;
 }
 
 * {

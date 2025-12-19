@@ -71,4 +71,3 @@ Deploy to Vercel, Netlify, or any static hosting service.
 
 ---
 
-**Made with ❤️ and AI**

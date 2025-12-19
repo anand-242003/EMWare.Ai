@@ -48,7 +48,7 @@
 }
 
 .trip-navbar .logo:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
   color: #5fb962;
 }
 
@@ -170,9 +170,9 @@
 
 .cancel-btn {
   padding: 0.75rem 1.75rem;
-  background: rgba(255, 51, 102, 0.15);
-  color: #FF3366;
-  border: 2px solid rgba(255, 51, 102, 0.5);
+  background: rgba(232, 93, 117, 0.15);
+  color: #e85d75;
+  border: 2px solid rgba(232, 93, 117, 0.5);
   border-radius: 50px;
   font-size: 0.95rem;
   font-weight: 700;
@@ -190,11 +190,11 @@
 }
 
 .cancel-btn:hover {
-  background: #FF3366;
+  background: #e85d75;
   color: #FFFFFF;
-  border-color: #FF3366;
+  border-color: #e85d75;
   transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(255, 51, 102, 0.4);
+  box-shadow: 0 0 30px rgba(232, 93, 117, 0.4);
 }
 
 /* Section Header */
@@ -279,11 +279,11 @@
 }
 
 .hotel-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-3px);
   border-color: rgba(95, 185, 98, 0.4);
   box-shadow: 
-    0 12px 48px rgba(0, 0, 0, 0.5),
-    0 0 30px rgba(95, 185, 98, 0.2);
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(95, 185, 98, 0.15);
 }
 
 .hotel-image-wrapper {
@@ -301,7 +301,7 @@
 }
 
 .hotel-card:hover .hotel-image {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .hotel-price-badge {
@@ -537,8 +537,8 @@
 .activity-content:hover {
   background: rgba(0, 0, 0, 0.4);
   border-color: rgba(95, 185, 98, 0.4);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
 .activity-image-wrapper {
@@ -640,7 +640,7 @@
 
 .trip-error h2 {
   font-size: 3rem;
-  color: #FF3366;
+  color: #e85d75;
   margin-bottom: 1rem;
 }
 
@@ -823,8 +823,8 @@
 }
 
 .modal-close:hover {
-  background: rgba(255, 51, 102, 0.8);
-  border-color: #FF3366;
+  background: rgba(232, 93, 117, 0.8);
+  border-color: #e85d75;
   transform: rotate(90deg);
 }
 

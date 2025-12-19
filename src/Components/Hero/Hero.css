@@ -174,9 +174,9 @@
 }
 
 .search-btn:hover {
-  transform: scale(1.08);
+  transform: scale(1.03);
   background: #6bc96e;
-  box-shadow: 0 6px 25px rgba(70, 160, 73, 0.35);
+  box-shadow: 0 4px 16px rgba(70, 160, 73, 0.3);
 }
 
 .search-btn svg {
@@ -529,7 +529,7 @@
 .section-underline {
   width: 100px;
   height: 4px;
-  background: #00FF00;
+  background: #5fb962;
   margin: 0 auto 3rem;
   border-radius: 2px;
 }

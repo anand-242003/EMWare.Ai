@@ -28,13 +28,13 @@
 }
 
 .logo:hover {
-  transform: scale(1.05);
-  text-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  transform: scale(1.02);
+  text-shadow: 0 0 15px rgba(95, 185, 98, 0.4);
 }
 
 .logo span {
-  color: #00FF00;
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  color: #5fb962;
+  text-shadow: 0 0 10px rgba(95, 185, 98, 0.5);
 }
 
 .nav-buttons {
@@ -56,20 +56,20 @@
 
 .btn.login {
   background: transparent;
-  color: #00FF00;
-  border: 2px solid rgba(0, 255, 0, 0.5);
+  color: #5fb962;
+  border: 2px solid rgba(95, 185, 98, 0.5);
 }
 
 .btn.login:hover {
-  background: rgba(0, 255, 0, 0.1);
-  border-color: #00FF00;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+  background: rgba(95, 185, 98, 0.1);
+  border-color: #5fb962;
+  box-shadow: 0 0 20px rgba(95, 185, 98, 0.3);
 }
 
 .btn.signup {
-  background: #00FF00;
-  color: #000000;
-  box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
+  background: #5fb962;
+  color: #FFFFFF;
+  box-shadow: 0 0 30px rgba(95, 185, 98, 0.4);
   border: none;
 }
 
@@ -79,15 +79,15 @@
 }
 
 .btn.logout {
-  background: rgba(255, 51, 102, 0.2);
-  color: #FF3366;
-  border: 2px solid rgba(255, 51, 102, 0.5);
+  background: rgba(232, 93, 117, 0.2);
+  color: #e85d75;
+  border: 2px solid rgba(232, 93, 117, 0.5);
 }
 
 .btn.logout:hover {
-  background: #FF3366;
+  background: #e85d75;
   color: #FFFFFF;
-  border-color: #FF3366;
+  border-color: #e85d75;
 }
 
 .welcome-text {
