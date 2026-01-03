@@ -70,26 +70,36 @@ Budget: ${budget}
   let result = null;
   let lastError = null;
 
-  for (const modelName of MODELS_TO_TRY) {
-    try {
-      const model = genAI.getGenerativeModel({ model: modelName });
-      result = await model.generateContent(prompt);
-      break;
-    } catch (error) {
-      lastError = error;
-      continue;
-    }
+  // trying to call all models at same time so it is faster
+  // if one works we use that one
+  try {
+    const allPromises = MODELS_TO_TRY.map(async (name) => {
+      console.log("calling model " + name);
+      const model = genAI.getGenerativeModel({ model: name });
+      const res = await model.generateContent(prompt);
+      return res;
+    });
+
+    result = await Promise.any(allPromises);
+    console.log("one model worked!");
+
+  } catch (err) {
+    console.log("everything failed");
+    console.log(err);
+    lastError = err;
   }
 
   if (!result) {
     if (lastError?.message?.includes('404') || lastError?.message?.includes('not found')) {
       throw new Error('Gemini API models not available. Please check your API key.');
     }
-    throw new Error(`Failed to generate itinerary. Please try again. Error: ${lastError?.message || 'Unknown error'}`);
+    // simple error message
+    throw new Error(`Failed to generate itinerary. Please try again.`);
   }
 
   try {
     const text = result.response.text().trim();
+    // cleaning the text
     const cleanText = text
       .replace(/^```json/, "")
       .replace(/^```/, "")
@@ -98,8 +108,10 @@ Budget: ${budget}
 
     const parsed = JSON.parse(cleanText);
 
+    // getting images for hotels
     if (parsed.hotels && Array.isArray(parsed.hotels)) {
       const hotelPromises = parsed.hotels.map(async (hotel, index) => {
+        // fetching image
         const hotelDetails = await fetchHotelImage(
           hotel.HotelName,
           location,
@@ -116,6 +128,7 @@ Budget: ${budget}
       parsed.hotels = await Promise.all(hotelPromises);
     }
 
+    // getting images for itinerary
     if (parsed.itinerary && Array.isArray(parsed.itinerary)) {
       const itineraryPromises = parsed.itinerary.map(async (day) => {
         if (day.Activities && Array.isArray(day.Activities)) {
@@ -142,6 +155,7 @@ Budget: ${budget}
 
     return parsed;
   } catch (err) {
+    console.log("parsing error", err);
     return null;
   }
 }
