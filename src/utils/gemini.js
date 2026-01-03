@@ -70,22 +70,22 @@ Budget: ${budget}
   let result = null;
   let lastError = null;
 
-  for (const modelName of MODELS_TO_TRY) {
-    try {
+  try {
+    const modelPromises = MODELS_TO_TRY.map(async (modelName) => {
       const model = genAI.getGenerativeModel({ model: modelName });
-      result = await model.generateContent(prompt);
-      break;
-    } catch (error) {
-      lastError = error;
-      continue;
-    }
+      return await model.generateContent(prompt);
+    });
+
+    result = await Promise.any(modelPromises);
+  } catch (err) {
+    lastError = err;
   }
 
   if (!result) {
     if (lastError?.message?.includes('404') || lastError?.message?.includes('not found')) {
       throw new Error('Gemini API models not available. Please check your API key.');
     }
-    throw new Error(`Failed to generate itinerary. Please try again. Error: ${lastError?.message || 'Unknown error'}`);
+    throw new Error(`Failed to generate itinerary. Please try again.`);
   }
 
   try {
